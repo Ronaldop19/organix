@@ -1,4 +1,4 @@
-package br.com.organix.organix.entity;
+package br.com.organix.organix.model;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

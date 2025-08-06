@@ -1,4 +1,4 @@
-package br.com.organix.organix.entity;
+package br.com.organix.organix.model;
 
 public enum TaskStatus {
     TO_DO(1),
