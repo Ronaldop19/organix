@@ -56,16 +56,11 @@ public class UserService {
             throw new IllegalArgumentException("Email already exists");
         }
         
-        String encodedPassowrd = passwordEncoder.encode(user.getPassword());
-        
-        // user.addRole(defaultRole);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        if (encodedPassword == null || encodedPassword.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be empty");
+        }
 
-        return userRepository.save(new User(
-            user.getFullName(),
-            user.getEmail(),
-            user.getUsername(),
-            encodedPassowrd,
-            user.getRole()
-        ));
+        return userRepository.save(user);
     }
 }

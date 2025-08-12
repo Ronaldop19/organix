@@ -5,14 +5,13 @@ public enum Role {
     USER(2),
     MANAGER(3);
 
-    @SuppressWarnings("unused")
     private final int value;
 
     Role(int value) {
         this.value = value;
     }
 
-    public String getRoleName() {
-        return this.name();
+    public int getValue() {
+        return value;
     }
 }

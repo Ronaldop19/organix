@@ -4,7 +4,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -16,6 +15,8 @@ import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 
 @Entity
@@ -32,9 +33,6 @@ public class User {
 
     private String password;
     
-    @ManyToOne @JoinColumn(name = "role_id")
-    private Role role;
-    
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Project> ownedProjects = new HashSet<>();
 
@@ -43,6 +41,7 @@ public class User {
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Set<Role> roles = new HashSet<>();
 
@@ -55,7 +54,6 @@ public class User {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.role = role;
     }
     public Long getId() {
         return id;
@@ -95,14 +93,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Set<Project> getOwnedProjects() {
